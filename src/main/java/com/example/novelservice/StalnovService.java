@@ -4,9 +4,9 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class NovelService {
+public class StalnovService {
 
-	public static void main(String[] args) {
-		SpringApplication.run(NovelService.class, args);
-	}
+  public static void main(String[] args) {
+    SpringApplication.run(StalnovService.class, args);
+  }
 }

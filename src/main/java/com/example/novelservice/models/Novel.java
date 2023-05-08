@@ -1,45 +1,33 @@
 package com.example.novelservice.models;
 
 import jakarta.persistence.*;
-
-import java.util.Date;
-import java.util.UUID;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
-public class Novel {
+public class Novel extends Base {
+  private String title;
+  private String description;
+  @Enumerated(EnumType.STRING) private Genre genre;
 
-    @Id
-    @GeneratedValue(strategy= GenerationType.AUTO)
-    private Long Id;
+  // Relations
 
-    private String title;
-    private String description;
-    @Enumerated(EnumType.STRING)
-    private Genre genre;
-    private Date createdAt;
+  @OneToMany(mappedBy = "novel", cascade = CascadeType.ALL)
+  private List<Chapter> chapters = new ArrayList<Chapter>();
 
-    public Novel() {
-    }
+  public Novel() {}
 
-    public Novel(String title, String description, Genre genre) {
-        this.title = title;
-        this.description = description;
-        this.genre = genre;
-    }
+  public Novel(String title, String description, Genre genre) {
+    this.title = title;
+    this.description = description;
+    this.genre = genre;
+  }
 
-    public Long getId() {
-        return Id;
-    }
+  public String getTitle() { return title; }
 
-    public String getTitle() {
-        return title;
-    }
+  public String getDescription() { return description; }
 
-    public String getDescription() {
-        return description;
-    }
+  public Genre getGenre() { return genre; }
 
-    public Genre getGenre() {
-        return genre;
-    }
+  public List<Chapter> getChapters() { return this.chapters; }
 }

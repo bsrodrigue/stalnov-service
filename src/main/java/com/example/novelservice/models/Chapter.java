@@ -1,36 +1,28 @@
 package com.example.novelservice.models;
 
 import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
 @Entity
+public class Chapter extends Base {
 
-public class Chapter {
+  private String title;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long Id;
+  private String body;
 
-    private String title;
+  @ManyToOne @JoinColumn(name = "novel_id") private Novel novel;
 
-    private String body;
+  public Chapter() {}
 
-    public Chapter() {
-    }
+  public Chapter(String title, String body) {
+    this.title = title;
+    this.body = body;
+  }
 
-    public Chapter(String title, String body) {
-        this.title = title;
-        this.body = body;
-    }
+  public String getTitle() { return title; }
 
-    public String getTitle() {
-        return title;
-    }
+  public String getBody() { return body; }
 
-
-    public String getBody() {
-        return body;
-    }
+  public void setNovel(Novel novel) { this.novel = novel; }
 }
