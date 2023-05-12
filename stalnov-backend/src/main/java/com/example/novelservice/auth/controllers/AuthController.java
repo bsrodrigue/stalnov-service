@@ -1,9 +1,11 @@
 package com.example.novelservice.auth.controllers;
 
-import com.example.novelservice.auth.entities.Role;
-import com.example.novelservice.auth.entities.User;
-import com.example.novelservice.auth.repositories.UserRepository;
+import com.example.novelservice.auth.exceptions.UserNotFoundException;
 import com.example.novelservice.auth.requests.CreateUserRequest;
+import com.example.novelservice.auth.requests.DeleteAccountRequest;
+import com.example.novelservice.auth.responses.AuthResponses;
+import com.example.novelservice.auth.services.UserService;
+import com.example.novelservice.common.responses.SuccessResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,26 +18,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 public class AuthController {
-    private final UserRepository userRepository;
-
+    private final UserService userService;
 
     @PostMapping("/register")
-    public ResponseEntity<User> register(@Valid @RequestBody CreateUserRequest request) {
-        var user = User.builder()
-                .bio(request.bio())
-                .avatarUrl(request.avatarUrl())
-                .birthdate(request.birthdate())
-                .email(request.email())
-                .role(Role.USER)
-                .gender(request.gender())
-                .pseudo(request.pseudo())
-                .lastName(request.lastName())
-                .firstName(request.firstName())
-                .password(request.password())
-                .build();
+    public ResponseEntity<SuccessResponse> register(@Valid @RequestBody CreateUserRequest request) {
+        userService.createUserFromRequest(request);
+        return ResponseEntity.ok(new AuthResponses.CreateUserResponse());
+    }
 
-        userRepository.save(user);
-
-        return ResponseEntity.ok(user);
+    @PostMapping("/delete-account")
+    public ResponseEntity<SuccessResponse> deleteAccount(@Valid @RequestBody DeleteAccountRequest request) throws UserNotFoundException {
+        userService.deleteUserAccountFromRequest(request);
+        return ResponseEntity.ok(new AuthResponses.DeleteAccountResponse());
     }
 }

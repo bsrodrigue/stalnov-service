@@ -8,4 +8,8 @@ public enum Genre {
     HORROR,
     HISTORICAL,
     SHORT_STORIES,
+    COMEDY,
+    BIOGRAPHY,
+    SCI_FI,
+    TRADITIONAL,
 }

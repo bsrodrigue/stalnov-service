@@ -1,5 +1,6 @@
 package com.example.novelservice.auth.controllers;
 
+import com.example.novelservice.auth.exceptions.UserNotFoundException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import org.springframework.http.HttpStatus;
@@ -34,6 +35,12 @@ public class GlobalExceptionHandler {
     public ResponseEntity<ErrorResponse> handleConstraintException(SQLIntegrityConstraintViolationException e) {
 
         ErrorResponse response = new EResponse(HttpStatus.BAD_REQUEST.value(), "Constraint Error", List.of(e.getMessage()));
+        return ResponseEntity.badRequest().body(response);
+    }
+
+    @ExceptionHandler(UserNotFoundException.class)
+    public ResponseEntity<ErrorResponse> handleUserNotFoundException(UserNotFoundException e) {
+        ErrorResponse response = new EResponse(HttpStatus.NOT_FOUND.value(), "User not found", List.of());
         return ResponseEntity.badRequest().body(response);
     }
 
