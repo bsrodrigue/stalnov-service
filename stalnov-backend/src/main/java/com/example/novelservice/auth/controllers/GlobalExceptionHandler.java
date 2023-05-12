@@ -11,6 +11,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
+import java.sql.SQLIntegrityConstraintViolationException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -26,6 +27,13 @@ public class GlobalExceptionHandler {
                 .collect(Collectors.toList());
 
         ErrorResponse response = new EResponse(HttpStatus.BAD_REQUEST.value(), "Validation Error", errors);
+        return ResponseEntity.badRequest().body(response);
+    }
+
+    @ExceptionHandler(SQLIntegrityConstraintViolationException.class)
+    public ResponseEntity<ErrorResponse> handleConstraintException(SQLIntegrityConstraintViolationException e) {
+
+        ErrorResponse response = new EResponse(HttpStatus.BAD_REQUEST.value(), "Constraint Error", List.of(e.getMessage()));
         return ResponseEntity.badRequest().body(response);
     }
 
