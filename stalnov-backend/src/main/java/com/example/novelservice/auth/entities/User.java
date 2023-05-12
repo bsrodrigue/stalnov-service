@@ -26,13 +26,12 @@ public class User extends BaseEntity implements UserDetails {
     private final List<Novel> creations = new ArrayList<>();
 
     @Column(unique = true)
+    @NotNull
     private String pseudo;
 
-    @NotNull
     private String firstName;
-
-    @NotNull
     private String lastName;
+    private String bio;
 
     @Email
     @Column(unique = true)
@@ -41,7 +40,8 @@ public class User extends BaseEntity implements UserDetails {
 
     @NotNull
     private String password;
-    private String bio;
+
+    @NotNull
     private LocalDate birthdate;
 
     @Enumerated(EnumType.STRING)
@@ -49,7 +49,6 @@ public class User extends BaseEntity implements UserDetails {
 
     @Enumerated(EnumType.STRING)
     private Gender gender;
-
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
