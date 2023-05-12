@@ -1,11 +1,11 @@
-package com.example.novelservice.models;
+package com.example.novelservice.common.entities;
 
+import com.example.novelservice.auth.entities.User;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.util.ArrayList;
 
@@ -14,16 +14,24 @@ import java.util.ArrayList;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class Novel {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
-    private Long Id;
+@EqualsAndHashCode(callSuper = true)
+public class Novel extends BaseEntity {
+    @NotNull
     private String title;
+    @NotNull
     private String description;
 
+    private String coverUrl;
+
+    private boolean isMature;
+
     @Enumerated(EnumType.STRING)
+    @NotNull
     private Genre genre;
+
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private NovelStatus status;
 
     @OneToMany(mappedBy = "novel", cascade = CascadeType.ALL)
     private ArrayList<Chapter> chapters;

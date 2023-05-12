@@ -1,14 +1,16 @@
-package com.example.novelservice.models;
+package com.example.novelservice.auth.entities;
 
+import com.example.novelservice.common.entities.BaseEntity;
+import com.example.novelservice.common.entities.Novel;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.validation.constraints.Email;
+import jakarta.validation.constraints.NotNull;
+import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
@@ -18,25 +20,44 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Entity
-public class User implements UserDetails {
-
+@EqualsAndHashCode(callSuper = true)
+public class User extends BaseEntity implements UserDetails {
     @OneToMany(mappedBy = "author")
     private final List<Novel> creations = new ArrayList<>();
-    @Id
-    @GeneratedValue
-    private Long Id;
+
     @Column(unique = true)
-    private String username;
+    private String pseudo;
+
+    @NotNull
     private String firstName;
+
+    @NotNull
     private String lastName;
+
+    @Email
+    @Column(unique = true)
+    private String email;
+    private String avatarUrl;
+
+    @NotNull
     private String password;
     private String bio;
+    private LocalDate birthdate;
+
     @Enumerated(EnumType.STRING)
     private Role role;
+
+    @Enumerated(EnumType.STRING)
+    private Gender gender;
+
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return List.of(new SimpleGrantedAuthority(role.name()));
+    }
+
+    public String getUsername() {
+        return email;
     }
 
     @Override

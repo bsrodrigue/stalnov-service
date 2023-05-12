@@ -1,4 +1,4 @@
-package com.example.novelservice.models;
+package com.example.novelservice.common.entities;
 
 public enum Genre {
     ADVENTURE,

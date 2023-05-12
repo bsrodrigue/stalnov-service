@@ -1,4 +1,4 @@
-package com.example.novelservice.models;
+package com.example.novelservice.auth.entities;
 
 public enum Role {
     ADMIN,
