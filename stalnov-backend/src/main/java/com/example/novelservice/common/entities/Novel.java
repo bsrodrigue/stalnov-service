@@ -8,6 +8,7 @@ import lombok.*;
 import org.springframework.boot.context.properties.bind.DefaultValue;
 
 import java.util.ArrayList;
+import java.util.List;
 
 @Data
 @Builder
@@ -34,15 +35,11 @@ public class Novel extends BaseEntity {
     private NovelStatus status;
 
     @OneToMany(mappedBy = "novel", cascade = CascadeType.ALL)
-    private ArrayList<Chapter> chapters;
+    private List<Chapter> chapters;
 
     @ManyToOne
     @JoinColumn(name = "author_id")
     @JsonIgnore
     private User author;
-
-    public String getAuthor() {
-        return this.author.getUsername();
-    }
 
 }

@@ -12,4 +12,5 @@ public enum Genre {
     BIOGRAPHY,
     SCI_FI,
     TRADITIONAL,
+    UNKNOWN,
 }

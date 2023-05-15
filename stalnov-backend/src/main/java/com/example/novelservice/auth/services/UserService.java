@@ -45,4 +45,8 @@ public class UserService {
         userRepository.delete(result.get());
     }
 
+    public User loadUserByUsername(String username) throws UserNotFoundException {
+        return userRepository.findByEmail(username).orElseThrow(UserNotFoundException::new);
+    }
+
 }
