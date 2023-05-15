@@ -1,11 +1,9 @@
 package com.example.novelservice.auth.controllers;
 
-import com.example.novelservice.auth.exceptions.UserNotFoundException;
+import com.example.novelservice.auth.requests.AuthenticationRequest;
 import com.example.novelservice.auth.requests.CreateUserRequest;
-import com.example.novelservice.auth.requests.DeleteAccountRequest;
-import com.example.novelservice.auth.responses.AuthResponses;
-import com.example.novelservice.auth.services.UserService;
-import com.example.novelservice.common.responses.SuccessResponse;
+import com.example.novelservice.auth.responses.AuthenticationResponse;
+import com.example.novelservice.auth.services.AuthenticationService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -18,17 +16,18 @@ import org.springframework.web.bind.annotation.RestController;
 @RequiredArgsConstructor
 @RestController
 public class AuthController {
-    private final UserService userService;
+    private final AuthenticationService authenticationService;
 
     @PostMapping("/register")
-    public ResponseEntity<SuccessResponse> register(@Valid @RequestBody CreateUserRequest request) {
-        userService.createUserFromRequest(request);
-        return ResponseEntity.ok(new AuthResponses.CreateUserResponse());
+    public ResponseEntity<AuthenticationResponse> register(@Valid @RequestBody CreateUserRequest request) {
+        var response = authenticationService.register(request);
+        return ResponseEntity.ok(response);
     }
 
-    @PostMapping("/delete-account")
-    public ResponseEntity<SuccessResponse> deleteAccount(@Valid @RequestBody DeleteAccountRequest request) throws UserNotFoundException {
-        userService.deleteUserAccountFromRequest(request);
-        return ResponseEntity.ok(new AuthResponses.DeleteAccountResponse());
+    @PostMapping("/authenticate")
+    public ResponseEntity<AuthenticationResponse> authenticate(@Valid @RequestBody AuthenticationRequest request) {
+        var response = authenticationService.authenticate(request);
+        return ResponseEntity.ok(response);
     }
+
 }

@@ -19,7 +19,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final Role defaultUserRole;
 
-    public void createUserFromRequest(CreateUserRequest request) {
+    public User createUserFromRequest(CreateUserRequest request) {
 
         var user = User.builder()
                 .bio(request.bio())
@@ -35,6 +35,8 @@ public class UserService {
                 .build();
 
         userRepository.save(user);
+
+        return user;
     }
 
     public void deleteUserAccountFromRequest(DeleteAccountRequest request) throws UserNotFoundException {
