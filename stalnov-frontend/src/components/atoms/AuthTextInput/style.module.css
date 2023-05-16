@@ -1,0 +1,15 @@
+input {
+    background-color: #EDEDED;
+    color: black;
+    border: none;
+    border-radius: 0.5em;
+    padding: 1em;
+}
+
+input::placeholder {
+    color: dimgray;
+}
+
+input:focus {
+    outline: none;
+}
