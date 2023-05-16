@@ -1,4 +1,4 @@
-package com.example.novelservice.workshop.requests;
+package com.example.novelservice.workshop.requests.novels;
 
 import jakarta.validation.constraints.NotNull;
 

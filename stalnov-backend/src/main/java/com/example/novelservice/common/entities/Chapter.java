@@ -13,8 +13,11 @@ import lombok.*;
 public class Chapter extends BaseEntity {
     @NotNull
     private String title;
-    @NotNull
     private String body;
+
+    @Enumerated(EnumType.STRING)
+    @NotNull
+    private ChapterStatus status;
 
     @ManyToOne
     @JoinColumn(name = "novel_id")

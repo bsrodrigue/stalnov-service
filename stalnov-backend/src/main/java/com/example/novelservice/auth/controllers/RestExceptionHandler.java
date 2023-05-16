@@ -1,5 +1,6 @@
 package com.example.novelservice.auth.controllers;
 
+import com.example.novelservice.auth.exceptions.UserNotAuthorException;
 import com.example.novelservice.common.exceptions.ApiError;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.validation.ConstraintViolationException;
@@ -33,6 +34,13 @@ public class RestExceptionHandler extends ResponseEntityExceptionHandler {
     @ExceptionHandler(ConstraintViolationException.class)
     protected ResponseEntity<Object> handleConstraintViolation(ConstraintViolationException e) {
         ApiError apiError = new ApiError(HttpStatus.BAD_REQUEST);
+        apiError.setMessage(e.getMessage());
+        return buildResponseEntity(apiError);
+    }
+
+    @ExceptionHandler(UserNotAuthorException.class)
+    protected ResponseEntity<Object> handleConstraintViolation(UserNotAuthorException e) {
+        ApiError apiError = new ApiError(HttpStatus.FORBIDDEN);
         apiError.setMessage(e.getMessage());
         return buildResponseEntity(apiError);
     }
