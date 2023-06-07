@@ -7,12 +7,12 @@ import java.time.LocalDate;
 public record CreateUserRequest(
         @NotNull String email,
         @NotNull String password,
+        @NotNull
+        LocalDate birthdate,
+        @NotNull String pseudo,
         String firstName,
         String lastName,
         Gender gender,
-        @NotNull
-        LocalDate birthdate,
         String avatarUrl,
-        @NotNull String pseudo,
         String bio) {
 }
