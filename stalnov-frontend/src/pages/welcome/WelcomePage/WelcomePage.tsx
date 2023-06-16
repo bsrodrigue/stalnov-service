@@ -1,42 +1,11 @@
-import { Box, Button, ButtonGroup, Link, Stack, styled } from "@mui/material";
-import logo from "../../../assets/icons/logo.png";
+import { Box, Button, ButtonGroup, Stack } from "@mui/material";
+import { ReactNode } from "react";
+import reader1 from "../../../assets/illustrations/reader1.png";
 import reader3 from "../../../assets/illustrations/reader3.png";
 import writer from "../../../assets/illustrations/writer_1.png";
-import reader1 from "../../../assets/illustrations/reader1.png";
 import { Wrapper } from "../../../layout";
-import { theme } from "../../../theme";
-import { ReactNode } from "react";
+import { AuthLink, Header } from "../../../components";
 
-const AuthLink = styled(Link)({
-    padding: "0.5em 1.5em",
-    borderRadius: "0.8em",
-    border: "1px solid",
-    fontWeight: "600",
-    fontSize: 20,
-
-    "&:hover": {
-        color: "white",
-        backgroundColor: theme.palette.primary.main
-    }
-});
-
-
-function Header() {
-    return (
-        <Wrapper>
-            <Stack justifyContent="space-between" alignItems="center" direction="row">
-                <Box paddingTop={5}>
-                    <img src={logo} height={65} width={250} />
-                </Box>
-
-                <Stack direction="row" gap={1}>
-                    <AuthLink underline="none" href="/auth/register">S'inscrire</AuthLink>
-                    <AuthLink underline="none" href="/auth/login">Se Connecter</AuthLink>
-                </Stack>
-            </Stack>
-        </Wrapper>
-    )
-}
 
 type WelcomeSectionProps = {
     title: string;
@@ -74,13 +43,16 @@ function WelcomeSection({ title, titleColor, description, descriptionColor, bgco
 }
 
 export default function WelcomePage() {
-
-
     return (
         <>
             <Box bgcolor="white">
                 <Wrapper>
-                    <Header />
+                    <Header >
+                        <Stack direction="row" gap={1}>
+                            <AuthLink underline="none" href="/auth/register">S'inscrire</AuthLink>
+                            <AuthLink underline="none" href="/auth/login">Se Connecter</AuthLink>
+                        </Stack>
+                    </Header>
                 </Wrapper>
             </Box>
 

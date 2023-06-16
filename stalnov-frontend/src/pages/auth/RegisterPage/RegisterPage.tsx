@@ -5,6 +5,7 @@ import { useState } from "react";
 import { defaults } from "../../../configs";
 import { Wrapper } from "../../../layout";
 import { steps } from "./steps";
+import { validationSchema1, validationSchema2, validationSchema3 } from "./validationSchema";
 
 
 const baseUrl = "http://localhost:8080";
@@ -18,6 +19,7 @@ type RegisterInput = {
 
 export default function RegisterPage() {
     const [stepIndex, setStepIndex] = useState(0);
+    const validationSchemas = [validationSchema1, validationSchema2, validationSchema3];
     const isMobile = useMediaQuery(defaults.mobileBreakpoint);
     const isLastStep = stepIndex === steps.length - 1;
 
@@ -49,8 +51,13 @@ export default function RegisterPage() {
 
                             if (isLastStep) {
                                 // API Call 
+                                return;
                             }
-                        }}>
+
+                            onNext();
+                        }}
+                        validationSchema={validationSchemas[stepIndex]}
+                    >
                         <Box sx={{ textAlign: "center" }}>
                             <p style={{ fontSize: "50px", margin: 0, fontWeight: "600" }} >Créer un compte</p>
                             <p>Rejoignez notre communaute de lecteurs</p>
@@ -60,7 +67,7 @@ export default function RegisterPage() {
                         </Box>
                         <ButtonGroup disableElevation fullWidth variant="contained" >
                             <Button sx={{ fontWeight: "bold" }} size="large" onClick={onPrevious}>Précédant</Button>
-                            <Button sx={{ fontWeight: "bold" }} size="large" type="submit" onClick={onNext}>{isLastStep ? "Valider" : "Suivant"}</Button>
+                            <Button sx={{ fontWeight: "bold" }} size="large" type="submit">{isLastStep ? "Valider" : "Suivant"}</Button>
                         </ButtonGroup>
                     </Form>
                     <Box marginTop={5} sx={{ textAlign: "center" }}>

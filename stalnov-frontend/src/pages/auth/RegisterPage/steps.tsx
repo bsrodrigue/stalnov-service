@@ -1,26 +1,42 @@
 import { TextField, FormControl, InputLabel, Select, MenuItem } from "@mui/material";
 import { defaults } from "../../../configs";
 import { FormPartial } from "@n7studio/react-original-form";
+import { useFormContext } from "react-hook-form";
+import { useEffect, useState } from "react";
 
 function Step1() {
     return (
         <FormPartial>
             <TextField name="email" type="email" label="Adresse Email" />
             <TextField name="password" type="password" label="Mot de passe" />
-            <TextField type="password" label="Confirmation de mot de passe" />
+            <TextField name="password2" type="password" label="Confirmation de mot de passe" />
         </FormPartial>
     );
 }
 
 function Step2() {
+    const [gender, setGender] = useState("male");
+
+    const { setValue } = useFormContext();
+
+    const handleChange = (value: string) => {
+        setGender(value);
+        setValue("gender", value);
+    }
+
+    useEffect(() => {
+        setValue("gender", gender);
+    }, []);
+
+
     return (
         <FormPartial>
-            <TextField name="firstname" label="Nom de famille" />
-            <TextField name="lastname" label="Prénom" />
+            <TextField name="firstName" label="Nom de famille" />
+            <TextField name="lastName" label="Prénom" />
 
             <FormControl>
                 <InputLabel id="">Genre</InputLabel>
-                <Select name="gender" label="Genre">
+                <Select value={gender} onChange={(e) => handleChange(e.target.value)} name="gender" label="Genre">
                     {
                         defaults.genders.map((gender) => (<MenuItem key={gender.value} value={gender.value}>{gender.label}</MenuItem>))
                     }

@@ -4,7 +4,7 @@ import { RouterProvider, createBrowserRouter } from 'react-router-dom';
 import { ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import './App.css';
-import { LoginPage, RegisterPage, ResetPasswordPage, WelcomePage } from './pages';
+import { HomePage, LoginPage, RegisterPage, ResetPasswordPage, WelcomePage } from './pages';
 import { theme } from './theme';
 
 const queryClient = new QueryClient();
@@ -25,6 +25,10 @@ const router = createBrowserRouter([
   {
     path: "/auth/reset-password",
     element: <ResetPasswordPage />
+  },
+  {
+    path: "/home",
+    element: <HomePage />
   },
 ]);
 
