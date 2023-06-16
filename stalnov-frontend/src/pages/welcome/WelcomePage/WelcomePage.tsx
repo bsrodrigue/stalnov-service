@@ -62,9 +62,9 @@ export default function WelcomePage() {
                 img={<img src={reader3} height={400} width={550} />}
                 position="right"
             >
-                <ButtonGroup>
-                    <Button>Découvrir</Button>
-                    <Button>Ecrire des histoires</Button>
+                <ButtonGroup fullWidth>
+                    <Button size="large" variant="contained" sx={{ backgroundColor: "white", color: "black" }} >Découvrir</Button>
+                    <Button size="large" variant="contained" sx={{ backgroundColor: "black", color: "white" }} >Ecrire des histoires</Button>
                 </ButtonGroup>
             </WelcomeSection>
 

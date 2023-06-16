@@ -1,5 +1,6 @@
 import { object, string } from "yup";
 
 export const validationSchema = object({
-    email: string().email().required(),
+    password: string().email().required(),
+    password2: string().email().required(),
 });

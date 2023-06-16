@@ -1,9 +1,9 @@
-import { Box, Button, Card, CardContent, Link, TextField, useMediaQuery } from "@mui/material";
+import { Box, Button, Card, CardContent, TextField, useMediaQuery } from "@mui/material";
 import { Form } from "@n7studio/react-original-form";
 import { defaults } from "../../../configs";
 import { Wrapper } from "../../../layout";
-import { validationSchema } from "./validationSchema";
 import { notifySuccess } from "../../../lib/notifications";
+import { validationSchema } from "./validationSchema";
 
 type ResetPasswordInput = {
     email: string;
@@ -33,17 +33,15 @@ export default function ResetPasswordPage() {
                             notifySuccess("Connexion réussie")
                         }}>
                         <Box sx={{ textAlign: "center" }}>
-                            <p style={{ fontSize: "50px", margin: 0, fontWeight: "600" }} >Réinitialisation</p>
-                            <p>Vous-vous souvenez de votre mot de passe? <Link href="/auth/login"> Cliquez-ici! </Link> </p>
+                            <p style={{ fontSize: "50px", margin: 0, fontWeight: "600" }} >Nouveau mot de passe</p>
+                            <p>Veuillez à présent saisir un nouveau mot de passe</p>
                         </Box>
                         <Box sx={{ display: "flex", flexDirection: "column", gap: "1em", m: "2em 0" }}>
-                            <TextField name="email" type="email" label="Adresse Email" placeholder="Veuillez entrer votre adresse email pour recevoir un lien de réinitialisation" />
+                            <TextField name="password" type="password" label="Nouveau mot de passe" placeholder="Veuillez saisir votre nouveau mot de passe" />
+                            <TextField name="password2" type="password" label="Confirmation du mot de passe" placeholder="Veuillez confirmer votre nouveau mot de passe" />
                         </Box>
-                        <Button sx={{ fontWeight: "bold" }} size="large" type="submit" fullWidth variant="contained" >Envoyer le lien de récupération</Button>
+                        <Button sx={{ fontWeight: "bold" }} size="large" type="submit" fullWidth variant="contained" >Changer de mot de passe</Button>
                     </Form>
-                    <Box sx={{ textAlign: "center" }}>
-                        <p>Vous n'avez pas encore un compte? <Link href="/auth/register"> Inscrivez-vous </Link> </p>
-                    </Box>
                 </CardContent>
             </Card>
         </Wrapper>
